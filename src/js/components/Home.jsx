@@ -1,28 +1,34 @@
 import React from "react";
+import PropTypes from "prop-types";
 
-//include images into your bundle
-import rigoImage from "../../img/rigo-baby.jpg";
+// Definimos el componente SecondsCounter dentro de este archivo
 
-//create your first component
-const Home = () => {
+const SecondsCounter = ({ seconds, digits = 6 }) => { // 6 cajitas
+
+	const numeroConCeros = String(seconds).padStart(digits, "0"); // string con ceros a la izquierda
+	const listaDeDigitos = numeroConCeros.split(""); // array de dígitos
+
 	return (
-		<div className="text-center">
-            
-
-			<h1 className="text-center mt-5">Hello Rigo!</h1>
-			<p>
-				<img src={rigoImage} />
-			</p>
-			<a href="#" className="btn btn-success">
-				If you see this green button... bootstrap is working...
-			</a>
-			<p>
-				Made by{" "}
-				<a href="http://www.4geeksacademy.com">4Geeks Academy</a>, with
-				love!
-			</p>
+		<div className="counter-wrapper">
+			
+			{/*cajita icon*/}
+			<div className="digit-box icon-box">
+				<i className="fa-solid fa-clock"></i>
+			</div>
+			
+			{/*pinta el digito*/}
+			{listaDeDigitos.map((digito, i) => (
+				<div className="digit-box" key={i}>
+					{digito}
+				</div>
+			))}
 		</div>
 	);
 };
 
-export default Home;
+SecondsCounter.propTypes = {
+	seconds: PropTypes.number.isRequired,
+	digits: PropTypes.number,
+};
+
+export default SecondsCounter;
